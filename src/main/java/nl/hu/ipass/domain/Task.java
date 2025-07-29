@@ -2,10 +2,14 @@ package nl.hu.ipass.domain;
 
 public class Task {
     private long id;
-    private String post;
+    private String message;
 
-    public Task() {
+    public Task(String message) {
         this.id = id;
-        this.post = post;
+        this.message = message;
+    }
+
+    public String getMessage() {
+        return message;
     }
 }

@@ -2,7 +2,7 @@ package nl.hu.ipass.domain;
 
 public class StudySession {
     private long id;
-    private Timer timer;
+    private PomodoroTimer timer;
     private Buddy buddy;
     private ToDoList toDoList;
     private User user;
