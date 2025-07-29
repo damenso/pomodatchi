@@ -81,6 +81,7 @@ public class StudyResource {
         //Dus een task word geindentificeerd via de message nu
         //Al wil je het veranderen naar id ga dan naar ToDoList deleteTask en verander String taskMessage argument naar long id
         toDoList.deleteTask(toDoList.getTask(taskMessage));
+        return Response.ok().build();
     }
 
     // get todolist
