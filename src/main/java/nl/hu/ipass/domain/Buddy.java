@@ -20,6 +20,10 @@ public class Buddy {
             this.chosenBuddy = "Dog";
         }
     }
+
+    public void updateAge(Age age) {
+        this.age = age;
+    }
 }
 
 

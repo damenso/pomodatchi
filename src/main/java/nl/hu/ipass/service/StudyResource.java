@@ -3,20 +3,18 @@ package nl.hu.ipass.service;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import nl.hu.ipass.domain.Buddy;
-import nl.hu.ipass.domain.PomodoroTimer;
-import nl.hu.ipass.domain.Task;
-import nl.hu.ipass.domain.ToDoList;
+import nl.hu.ipass.domain.*;
 
 import javax.servlet.annotation.WebServlet;
-import java.sql.Time;
+import java.util.Timer;
 
 @WebServlet
 @Path("/study")
 public class StudyResource {
-    private final ToDoList toDoList = new ToDoList();
-    private final PomodoroTimer timer = new PomodoroTimer();
-    private final Buddy buddy = new Buddy();
+    private final StudySession studySession = new StudySession();
+    private final Buddy buddy = studySession.getBuddy();
+    private final PomodoroTimer timer = studySession.getTimer();
+    private final ToDoList toDoList = studySession.getToDoList();
 
     // choose buddy
     @POST
@@ -31,11 +29,11 @@ public class StudyResource {
     }
     // set timer
     @POST
-    @Path("/timer/{workTime}{breakTime}{loopAmount}")
+    @Path("/timer/{focusMinutes}{breakMinutes}{loopAmount}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response setTimer(@PathParam("workTime") Time workTime, @PathParam("breakTime") Time breakTime, @PathParam("loopAmount") int loopAmount){
-        timer.createTimer(workTime, breakTime, loopAmount);
+    public Response setTimer(@PathParam("focusMinutes") int focusMinutes, @PathParam("breakMinutes") int breakMinutes, @PathParam("loopAmount") int loopAmount){
+        timer.createTimer(focusMinutes, breakMinutes, loopAmount);
 
         return Response.status(Response.Status.CREATED).entity(timer).build();
     }
@@ -96,6 +94,14 @@ public class StudyResource {
     }
 
     // update buddy status based on timer
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateBuddyStatus() {
+        //
+
+        return Response.ok().build();
+    }
 
     // taking care of buddy button
 
