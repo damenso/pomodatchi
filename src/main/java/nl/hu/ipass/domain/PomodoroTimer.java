@@ -8,6 +8,9 @@ public class PomodoroTimer{
     private int breakMinutes;
     private int amountLoops;
     private boolean paused;
+    private long passedFocusInSeconds;
+    private boolean isFocusRunning = false;
+
 
     public PomodoroTimer() {
     }
@@ -36,21 +39,29 @@ public class PomodoroTimer{
         for (int i = amountLoops; i >= 0; i--) {
             if (runFocus() == true) {
                 runBreak();
-            } else {
+            } else if (runBreak() == true) {
                 runFocus();
             }
         }
     }
 
+    public int getTotalStudyTime(){
+        return (focusMinutes * 60) * amountLoops;
+    }
 
     public boolean runFocus(){
         int focusInSeconds = focusMinutes * 60;
+        isFocusRunning = true;
+        passedFocusInSeconds = 0;
+        long startTime = System.currentTimeMillis();
+
         for (int i = focusInSeconds; i >= 0; i--) {
             if (paused == true) {
                 int pausedOnSecond = i;
                 System.out.println(pausedOnSecond);
                 break;
             } else if (paused == false) {
+                passedFocusInSeconds = (System.currentTimeMillis() - startTime) / 1000;
                 System.out.println(i);
             }
             try {
@@ -64,6 +75,10 @@ public class PomodoroTimer{
             return true;
         }
         return false;
+    }
+
+    public long getpassedFocusInSeconds() {
+        return passedFocusInSeconds;
     }
 
     public boolean runBreak(){

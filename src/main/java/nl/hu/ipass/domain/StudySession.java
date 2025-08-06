@@ -15,6 +15,7 @@ public class StudySession {
         this.toDoList = toDoList;
     }
 
+
     public PomodoroTimer getTimer() {
         return timer;
     }
@@ -28,13 +29,15 @@ public class StudySession {
     }
 
     public void updateBuddyAge(){
-        if (getTimeStudied == ((getTotalStudyTime / 3) * 2)){
+        if (timer.getpassedFocusInSeconds() >= (timer.getTotalStudyTime() *  0.67 ) && timer.getpassedFocusInSeconds() < (timer.getTotalStudyTime() * 0.8) ){
             buddy.updateAge(Age.TEEN);
-        } else if (getCurrentWorkTime >= getTotalStudyTime ){
+        } else if (timer.getpassedFocusInSeconds() >= (timer.getTotalStudyTime()* 0.8)){
             buddy.updateAge(Age.ADULT);
         } else {
             buddy.updateAge(Age.BABY);
         }
     }
+
+
 
 }
