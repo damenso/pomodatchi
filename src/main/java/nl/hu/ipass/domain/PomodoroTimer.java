@@ -104,11 +104,11 @@ public class PomodoroTimer{
         return false;
     }
 
-    public boolean pauseTimer(){
-        return false;
+    public void pauseTimer(){
+        paused = true;
     }
 
     public void resumeTimer(){
-
+        paused = false;
     }
 }

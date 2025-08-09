@@ -1,14 +1,10 @@
 package nl.hu.ipass.service;
 
-import jakarta.ws.rs.*;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import nl.hu.ipass.domain.*;
 
-import javax.servlet.annotation.WebServlet;
-import java.util.Timer;
-
-@WebServlet
 @Path("/study")
 public class StudyResource {
     private final StudySession studySession = new StudySession();
@@ -19,30 +15,26 @@ public class StudyResource {
     // choose buddy
     @POST
     @Path("/buddy/{name}/{chosenBuddy}")
-    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public void chooseBuddy(@PathParam("name") String name, @PathParam("chosenBuddy") String chosenBuddy){
+    public Response chooseBuddy(@PathParam("name") String name, @PathParam("chosenBuddy") String chosenBuddy){
         buddy.createBuddy(name, chosenBuddy);
-        //Voeg buddy toe aan user
-        // user.setBuddy(buddyBool)
-        //buddyBool 0 = kat, 1 = hond
+        studySession.setCurrentBuddy(buddy);
+        return Response.ok(buddy).build();
     }
+
     // set timer
     @POST
-    @Path("/timer/{focusMinutes}{breakMinutes}{loopAmount}")
+    @Path("/timer/{focusMinutes}/{breakMinutes}/{loopAmount}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response setTimer(@PathParam("focusMinutes") int focusMinutes, @PathParam("breakMinutes") int breakMinutes, @PathParam("loopAmount") int loopAmount){
         timer.createTimer(focusMinutes, breakMinutes, loopAmount);
-
         return Response.status(Response.Status.CREATED).entity(timer).build();
     }
 
     // pause/resume timer
     @POST
     @Path("/pauseTimer")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response pauseTimer(){
         timer.pauseTimer();
         return Response.ok().build();
@@ -50,8 +42,6 @@ public class StudyResource {
 
     @POST
     @Path("/resumeTimer")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     public Response resumeTimer(){
         timer.resumeTimer();
         return Response.ok().build();
@@ -64,7 +54,6 @@ public class StudyResource {
     public Response addTask(@PathParam("taskMessage") String taskMessage){
         Task task = new Task(taskMessage);
         toDoList.addTask(task);
-
         return Response.ok().build();
     }
 
@@ -90,7 +79,7 @@ public class StudyResource {
     public Response getToDoList(){
         //get add task todolist object en doe
         //ToDoList.getToDoList() dat een lijst returneerd
-        return Response.ok().build();
+        return Response.ok(toDoList.getTasks()).build();
     }
 
     // update buddy status based on timer
@@ -107,5 +96,8 @@ public class StudyResource {
 
     // adopt buddy
 
+    @GET
+    @Path("/ping")
+    public String ping(){ return "ok"; }
 
 }

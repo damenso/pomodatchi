@@ -10,9 +10,9 @@ public class StudySession {
     private User user;
 
     public StudySession() {
-        this.timer = timer;
-        this.buddy = buddy;
-        this.toDoList = toDoList;
+        this.timer = new PomodoroTimer();
+        this.buddy = new Buddy();
+        this.toDoList = new ToDoList();
     }
 
 
@@ -37,6 +37,29 @@ public class StudySession {
             buddy.updateAge(Age.BABY);
         }
     }
+
+
+    public User getCurrentUser(){
+        return user;
+    }
+    public void setCurrentUser(User user){
+        this.user = user;
+    }
+
+    public Buddy getCurrentBuddy(){
+        return buddy;
+    }
+    public void setCurrentBuddy(Buddy buddy){
+        this.buddy = buddy;
+    }
+
+    public PomodoroTimer getCurrentTimer(){
+        return timer;
+    }
+    public void setCurrentTimer(PomodoroTimer timer){
+        this.timer = timer;
+    }
+
 
 
 

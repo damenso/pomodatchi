@@ -14,15 +14,29 @@ public class Buddy {
 
     public void createBuddy(String name, String buddy){
         this.name = name;
-        if(buddy == "Cat"){
+        if(buddy.equalsIgnoreCase("Cat")){
             this.chosenBuddy = "Cat";
-        }else{
+        }else if (buddy.equalsIgnoreCase("Dog")){
             this.chosenBuddy = "Dog";
+        } else {
+            throw new IllegalArgumentException("Invalid buddy");
         }
     }
 
     public void updateAge(Age age) {
         this.age = age;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    public String getBuddy() {
+        return chosenBuddy;
+    }
+
+    public String getChosenBuddy() {
+        return chosenBuddy;
     }
 }
 

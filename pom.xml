@@ -16,44 +16,100 @@
     <jersey.version>3.1.1</jersey.version>
   </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <version>4.0.1</version>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish.jersey.media</groupId>
-      <artifactId>jersey-media-json-jackson</artifactId>
-      <version>${jersey.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish.jersey.containers</groupId>
-      <artifactId>jersey-container-servlet</artifactId>
-      <version>${jersey.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish.jersey.inject</groupId>
-      <artifactId>jersey-hk2</artifactId>
-      <version>${jersey.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.postgresql</groupId>
-      <artifactId>postgresql</artifactId>
-      <version>42.7.5</version>
-    </dependency>
-    <dependency>
-      <groupId>org.glassfish</groupId>
-      <artifactId>javax.json</artifactId>
-      <version>1.1.4</version>
-    </dependency>
-  </dependencies>
+    <dependencies>
+        <!--     JUnit dependency for testing -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Jersey dependencies -->
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>2.35</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+            <version>2.35</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.inject</groupId>
+            <artifactId>jersey-hk2</artifactId>
+            <version>2.35</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>2.35</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.16.1</version>
+        </dependency>
+
+        <!-- Servlet API dependency -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+    </dependencies>
+
+<!--  <dependencies>-->
+<!--&lt;!&ndash;       Junit dependency for testing&ndash;&gt;-->
+<!--      <dependency>-->
+<!--          <groupId>junit</groupId>-->
+<!--          <artifactId>junit</artifactId>-->
+<!--          <version>4.11</version>-->
+<!--          <scope>test</scope>-->
+<!--      </dependency>-->
+<!--&lt;!&ndash;       Jersey Dependencies  &ndash;&gt;-->
+<!--      <dependency>-->
+<!--          <groupId>org.glassfish.jersey.core</groupId>-->
+<!--          <artifactId>jersey-server</artifactId>-->
+<!--          <version>${jersey.version}</version>-->
+<!--      </dependency>-->
+<!--      <dependency>-->
+<!--          <groupId>org.glassfish.jersey.containers</groupId>-->
+<!--          <artifactId>jersey-container-servlet</artifactId>-->
+<!--          <version>${jersey.version}</version>-->
+<!--      </dependency>-->
+<!--      <dependency>-->
+<!--          <groupId>org.glassfish.jersey.inject</groupId>-->
+<!--          <artifactId>jersey-hk2</artifactId>-->
+<!--          <version>${jersey.version}</version>-->
+<!--      </dependency>-->
+<!--      <dependency>-->
+<!--          <groupId>org.glassfish.jersey.media</groupId>-->
+<!--          <artifactId>jersey-media-json-jackson</artifactId>-->
+<!--          <version>${jersey.version}</version>-->
+<!--      </dependency>-->
+<!--      <dependency>-->
+<!--          <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--          <artifactId>jackson-databind</artifactId>-->
+<!--          <version>2.16.1</version>-->
+<!--      </dependency>-->
+<!--&lt;!&ndash;       Servlet API Dependency &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>javax.servlet</groupId>-->
+<!--      <artifactId>javax.servlet-api</artifactId>-->
+<!--      <version>4.0.1</version>-->
+<!--    </dependency>-->
+<!--  </dependencies>-->
+
+
 
   <build>
     <pluginManagement>
