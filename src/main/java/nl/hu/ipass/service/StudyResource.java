@@ -7,7 +7,7 @@ import nl.hu.ipass.domain.*;
 
 @Path("/study")
 public class StudyResource {
-    private final StudySession studySession = new StudySession();
+    private static final StudySession studySession = new StudySession();
     private final Buddy buddy = studySession.getBuddy();
     private final PomodoroTimer timer = studySession.getTimer();
     private final ToDoList toDoList = studySession.getToDoList();
@@ -19,6 +19,7 @@ public class StudyResource {
     public Response chooseBuddy(@PathParam("name") String name, @PathParam("chosenBuddy") String chosenBuddy){
         buddy.createBuddy(name, chosenBuddy);
         studySession.setCurrentBuddy(buddy);
+        buddy.getAge();
         return Response.ok(buddy).build();
     }
 
@@ -49,24 +50,30 @@ public class StudyResource {
     // add task to todolist
     @POST
     @Path("/task/add/{taskMessage}")
-    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addTask(@PathParam("taskMessage") String taskMessage){
-        Task task = new Task(taskMessage);
-        toDoList.addTask(task);
-        return Response.ok().build();
+        if (taskMessage == null || taskMessage.isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\":\"message is required\"}").build();
+        }
+        toDoList.addTask(taskMessage);
+        return Response.status(Response.Status.CREATED).entity(taskMessage).build();
     }
 
     // delete task from todolist
     @DELETE
     @Path("/task/delete/{taskMessage}")
-    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteTask(@PathParam("taskMessage") String taskMessage){
         //Kan ook id gebruiken als unieke maar dat ga je miss niet gerbuiken als je geen database gebruikt
         //Ik gebruik nu taskMessage omdat ik dat uniek genoeg vind
-        //Dus een task word geindentificeerd via de message nu
+        //Dus een task word geidentificeerd via de message nu
         //Al wil je het veranderen naar id ga dan naar ToDoList deleteTask en verander String taskMessage argument naar long id
+        if (taskMessage == null || taskMessage.isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\":\"message is required\"}").build();
+        }
+        if (toDoList.getTasks().isEmpty()){
+            return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\":\"todo list is empty\"}").build();
+        }
         toDoList.deleteTask(toDoList.getTask(taskMessage));
         return Response.ok().build();
     }
@@ -74,11 +81,8 @@ public class StudyResource {
     // get todolist
     @GET
     @Path("/toDoList")
-    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getToDoList(){
-        //get add task todolist object en doe
-        //ToDoList.getToDoList() dat een lijst returneerd
         return Response.ok(toDoList.getTasks()).build();
     }
 
@@ -95,9 +99,5 @@ public class StudyResource {
     // taking care of buddy button
 
     // adopt buddy
-
-    @GET
-    @Path("/ping")
-    public String ping(){ return "ok"; }
 
 }

@@ -37,10 +37,10 @@ public class PomodoroTimer{
 
     public void runTimer(){
         for (int i = amountLoops; i >= 0; i--) {
-            if (runFocus() == true) {
-                runBreak();
-            } else if (runBreak() == true) {
-                runFocus();
+            if (switchToFocus() == true) {
+                switchToBreak() ;
+            } else if (switchToBreak() == true) {
+                switchToFocus();
             }
         }
     }
@@ -49,7 +49,7 @@ public class PomodoroTimer{
         return (focusMinutes * 60) * amountLoops;
     }
 
-    public boolean runFocus(){
+    public boolean switchToFocus(){
         int focusInSeconds = focusMinutes * 60;
         isFocusRunning = true;
         passedFocusInSeconds = 0;
@@ -81,7 +81,7 @@ public class PomodoroTimer{
         return passedFocusInSeconds;
     }
 
-    public boolean runBreak(){
+    public boolean switchToBreak(){
         int breakInSeconds = breakMinutes * 60;
         for (int i = breakInSeconds; i >= 0; i--) {
             if (paused == true) {

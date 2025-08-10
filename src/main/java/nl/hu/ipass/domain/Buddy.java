@@ -5,11 +5,11 @@ import nl.hu.ipass.domain.enums.Age;
 public class Buddy {
     private long id;
     private String name;
-    private Age age;
+    private Age age = Age.BABY;
     private String chosenBuddy;
 
     public Buddy() {
-        this.age = Age.BABY;
+
     }
 
     public void createBuddy(String name, String buddy){
@@ -21,6 +21,7 @@ public class Buddy {
         } else {
             throw new IllegalArgumentException("Invalid buddy");
         }
+        this.age = Age.BABY;
     }
 
     public void updateAge(Age age) {
@@ -34,9 +35,8 @@ public class Buddy {
     public String getBuddy() {
         return chosenBuddy;
     }
-
-    public String getChosenBuddy() {
-        return chosenBuddy;
+    public Age getAge() {
+        return age;
     }
 }
 

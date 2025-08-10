@@ -11,8 +11,9 @@ public class ToDoList {
         this.tasks = new ArrayList<>();
     }
 
-    public void addTask(Task task){
-        this.tasks.add(task);
+    public void addTask(String message){
+        Task task = new Task(message);
+        tasks.add(task);
     }
 
     public Task getTask(String message){
@@ -29,6 +30,6 @@ public class ToDoList {
     }
 
     public List<Task> getTasks(){
-        return this.tasks;
+        return tasks;
     }
 }
