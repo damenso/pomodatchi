@@ -25,7 +25,7 @@ public class StudyResource {
 
     // set timer
     @POST
-    @Path("/timer/{focusMinutes}/{breakMinutes}/{loopAmount}")
+    @Path("/timer/create/{focusMinutes}/{breakMinutes}/{loopAmount}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response setTimer(@PathParam("focusMinutes") int focusMinutes, @PathParam("breakMinutes") int breakMinutes, @PathParam("loopAmount") int loopAmount){
@@ -35,21 +35,21 @@ public class StudyResource {
 
     // pause/resume timer
     @POST
-    @Path("/pauseTimer")
+    @Path("/timer/pause")
     public Response pauseTimer(){
         timer.pauseTimer();
         return Response.ok().build();
     }
 
     @POST
-    @Path("/resumeTimer")
+    @Path("/timer/resume")
     public Response resumeTimer(){
         timer.resumeTimer();
         return Response.ok().build();
     }
     // add task to todolist
     @POST
-    @Path("/task/add/{taskMessage}")
+    @Path("/todoList/add/{taskMessage}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response addTask(@PathParam("taskMessage") String taskMessage){
         if (taskMessage == null || taskMessage.isEmpty()) {
@@ -61,10 +61,10 @@ public class StudyResource {
 
     // delete task from todolist
     @DELETE
-    @Path("/task/delete/{taskMessage}")
+    @Path("/todoList/delete/{taskMessage}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteTask(@PathParam("taskMessage") String taskMessage){
-        //Kan ook id gebruiken als unieke maar dat ga je miss niet gerbuiken als je geen database gebruikt
+        //Kan ook id gebruiken als unieke maar dat ga je miss niet gebruiken als je geen database gebruikt
         //Ik gebruik nu taskMessage omdat ik dat uniek genoeg vind
         //Dus een task word geidentificeerd via de message nu
         //Al wil je het veranderen naar id ga dan naar ToDoList deleteTask en verander String taskMessage argument naar long id

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Pomodatchi starter</title>
+    <link rel="stylesheet" href="./style.css"/>
+</head>
+<body>
+    <h1>Set your Pomodatchi timer and goals </h1>
+    <form id="focus-session-form">
+        <div id="timer-inputs" >
+            <h2>Pick your time</h2>
+            <label for="focus-time"></label>
+            <input type="number" id="focus-time" name="focus-time" placeholder="focus"/>
+            <label for="break-time"></label>
+            <input type="number" id="break-time" name="break-time" placeholder="break" />
+            <label for="loop-amount"></label>
+            <input type="number" id="loop-amount" name="loop-amount" placeholder="loop amount" />
+        </div>
+        <div id="buddyPanel">
+            <h2>Choose your Buddy</h2>
+            <button type="button" id="cat-buddy" >Cat</button>
+            <button type="button" id="dog-buddy" >Dog</button>
+        </div>
+        <div id="tasks">
+            <h2>Add tasks (optional)</h2>
+            <ul id="task-list">
+                <li><input type="checkbox"/>example: task one</li>
+                <li><input type="checkbox"/>example: task two</li>
+            </ul>
+        </div>
+        <button id="submit-button">start Timer</button>
+    </form>
+</body>
+</html>
