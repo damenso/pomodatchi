@@ -1,9 +1,9 @@
 export class BuddyService{
-    getChosenBuddy(buddy){
-        return fetch('restservices/study/buddy/', {
+    getChosenBuddy(name, chosenBuddy){
+        return fetch('restservices/study/buddy/{name}/{chosenBuddy}', {
             method: "POST",
             headers: { "Content-Type": "application/json"},
-            body: JSON.stringify(buddy)
+            body: JSON.stringify(name, chosenBuddy)
         })
             .then(response => {
                 if (!response.ok){

@@ -1,4 +1,4 @@
-import {TimerService} from "./service/TimerService";
+import {TimerService} from "../service/TimerService.js";
 
 export default class Timer {
     constructor() {
@@ -7,6 +7,7 @@ export default class Timer {
         const breakTime = document.querySelector('#break-time');
         const loopAmount = document.querySelector('#loop-amount');
     }
+
 
 
 }
