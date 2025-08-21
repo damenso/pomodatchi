@@ -1,6 +1,6 @@
 export class BuddyService{
     getChosenBuddy(name, chosenBuddy){
-        return fetch('restservices/study/buddy/{name}/{chosenBuddy}', {
+        return fetch(`restservices/study/buddy/${name}/${chosenBuddy}`, {
             method: "POST",
             headers: { "Content-Type": "application/json"},
             body: JSON.stringify(name, chosenBuddy)

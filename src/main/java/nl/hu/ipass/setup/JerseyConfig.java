@@ -9,5 +9,6 @@ import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 public class JerseyConfig extends ResourceConfig {
     public JerseyConfig() {
         packages("nl.hu.ipass.service");
+        packages("nl.hu.ipass.authentication");
     }
 }

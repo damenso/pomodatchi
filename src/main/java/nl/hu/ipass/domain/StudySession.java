@@ -1,6 +1,9 @@
 package nl.hu.ipass.domain;
 
+import nl.hu.ipass.authentication.User;
 import nl.hu.ipass.domain.enums.Age;
+
+import java.util.HashMap;
 
 public class StudySession {
     private long id;
@@ -8,12 +11,28 @@ public class StudySession {
     private Buddy buddy;
     private ToDoList toDoList;
     private User user;
+    private static StudySession studySessionInstance = new StudySession();
+    private HashMap<Integer, User> users = new HashMap<>();
+    private static int nextUserId = 1;
 
     public StudySession() {
         this.timer = new PomodoroTimer();
         this.buddy = new Buddy();
         this.toDoList = new ToDoList();
     }
+
+    public static StudySession getInstance() {
+        return studySessionInstance;
+    }
+
+    public int getNextUserId() {
+        return nextUserId++;
+    }
+
+    public void setUser(User user){
+        this.user = user;
+    }
+
 
 
     public PomodoroTimer getTimer() {

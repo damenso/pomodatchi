@@ -5,6 +5,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import nl.hu.ipass.domain.*;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.List;
+
 @Path("/study")
 public class StudyResource {
     private static final StudySession studySession = new StudySession();
@@ -99,5 +103,14 @@ public class StudyResource {
     // taking care of buddy button
 
     // adopt buddy
+
+    // saving info for a session
+    @POST
+    @Path("/session/save")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response saveSessionStartup(){
+        return Response.ok().build();
+    }
+
 
 }

@@ -2,14 +2,32 @@
 <html lang="nl">
 
 <head>
-    <title>Pomodatchi</title>
+    <title>Pomodatchi Login/Register</title>
     <script type="module" src="main.js"></script>
 </head>
 
 <body>
-    <main>
-        
-    </main>
+    <form id="login-form">
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" id="username">
+            <label for="password">Password:</label>
+            <input type="text" id="password">
+            <button id="login-button">login</button>
+            <button id="link-to-register">Don't have an account? Sign up</button>
+        </div>
+    </form>
+
+    <form id="register-form" style="display:none">
+        <div>
+            <label for="register-username">Username:</label>
+            <input type="text" id="register-username">
+            <label for="register-password">Password:</label>
+            <input type="text" id="register-password">
+            <button id="register-button">login</button>
+            <button id="link-to-login">Already have an account? Login</button>
+        </div>
+    </form>
 </body>
 
 </html>

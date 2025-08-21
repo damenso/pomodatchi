@@ -1,7 +1,7 @@
 export class TimerService {
 
     createTimer(focusMinutes, breakMinutes, loopAmount){
-        return fetch("restservices/study/timer/create/", {
+        return fetch(`restservices/study/timer/create/${focusMinutes}/${breakMinutes}/${loopAmount}`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(focusMinutes, breakMinutes, loopAmount)
