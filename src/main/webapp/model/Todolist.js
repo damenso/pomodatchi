@@ -7,7 +7,8 @@ export default class Todolist {
         this.taskList = document.querySelector('#task-list');
         this.taskContent =document.querySelector("#task-content");
         this.addTaskButton?.addEventListener("click",(event) => this.addTask(event));
-        this.taskList.addEventListener("click", (event) => this.deleteTask(event));
+        this.taskList?.addEventListener("click", (event) => this.deleteTask(event));
+        this.todolistService = new TodolistService();
     }
 
     addTask(event){
@@ -28,6 +29,7 @@ export default class Todolist {
             taskItem.appendChild(span);
 
         }
+        this.todolistService.addTaskToTodoList(taskMessage);
 
     }
 

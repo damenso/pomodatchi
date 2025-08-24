@@ -1,21 +1,23 @@
 export class LoginService{
 
-    login(user, password){
+    login(username, password){
         let fetchData = {
             method : "POST",
             headers: {"Content-Type": "application/json"},
-            body : JSON.stringify({username: user, password: password})
+            body : JSON.stringify({username: username, password: password})
         };
 
-        return fetch("/api/auth/login", fetchData)
+        return fetch("/restservices/authentication/login", fetchData)
             .then(response => {
                 if (response.ok) {
-                    alert("succesvol ingelogd!")
                     return response.json();
                 } else {
                     alert("Verkeerde username of wachtwoord")
-                    throw new Error("Verkeerde username of wachtwoord");
                 }
+            })
+            .then(data =>{
+                sessionStorage.setItem("LoggedInUser", username);
+                return data
             })
             .catch(error => {
                 console.log(error);
@@ -28,7 +30,7 @@ export class LoginService{
             password: password,
         };
 
-        fetch("/api/register", {
+        fetch("/restservices/authentication/register", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -42,12 +44,23 @@ export class LoginService{
                 return response.json();
             })
             .then(data => {
+                sessionStorage.setItem("UserRegistered", username);
                 alert(data.message);
             })
             .catch(error => {
                 console.error("Error:", error);
                 alert("Registration failed: " + error.message);
             });
+    }
+
+    isLoggedIn(username){
+       return sessionStorage.getItem("LoggedInUser") !== null;
+    }
+
+    logout(username){
+        sessionStorage.removeItem("LoggedInUser");
+        sessionStorage.clear();
+        window.location.href = "index.html"
     }
 
 }

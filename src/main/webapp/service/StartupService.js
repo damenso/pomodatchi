@@ -1,9 +1,10 @@
 export class StartupService {
-    getSessionStartupData(name, chosenBuddy, focusMinutes, breakMinutes, loopAmount, todolist){
+    saveSession(name, chosenBuddy, focusMinutes, breakMinutes, loopAmount, todolist){
         return fetch('restservices/study/session/save', {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body : JSON.stringify(name, chosenBuddy, focusMinutes, breakMinutes, loopAmount, todolist)
+            body : JSON.stringify({name: name, chosenBuddy: chosenBuddy,focusMinutes: focusMinutes,
+                breakMinutes: breakMinutes, loopAmount: loopAmount, todolist: todolist})
         })
             .then(response => {
                 if (!response.ok){
@@ -17,6 +18,15 @@ export class StartupService {
                     });
                 }
                 return response.json();
+            })
+            .then(data =>{
+                sessionStorage.setItem('buddyName', name);
+                if (chosenBuddy) sessionStorage.setItem('buddyType', chosenBuddy);
+                sessionStorage.setItem('focusMinutes', String(focusMinutes));
+                sessionStorage.setItem('breakMinutes', String(breakMinutes));
+                sessionStorage.setItem('loopAmount', String(loopAmount));
+                sessionStorage.setItem('tasks', JSON.stringify(todolist));
+                return data
             })
             .catch(error => {
                 console.error("Error saving session data" +

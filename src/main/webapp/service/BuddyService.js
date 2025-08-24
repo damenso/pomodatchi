@@ -1,10 +1,11 @@
 export class BuddyService{
     getChosenBuddy(name, chosenBuddy){
-        return fetch(`restservices/study/buddy/${name}/${chosenBuddy}`, {
+        let fetchData = {
             method: "POST",
             headers: { "Content-Type": "application/json"},
-            body: JSON.stringify(name, chosenBuddy)
-        })
+            body: JSON.stringify({name: name, chosenBuddy : chosenBuddy})
+        }
+        return fetch(`restservices/study/buddy/`, fetchData)
             .then(response => {
                 if (!response.ok){
                     return response.text().then(text => {
@@ -17,6 +18,11 @@ export class BuddyService{
                     });
                 }
                 return response.json();
+            })
+            .then(data =>{
+                sessionStorage.setItem('buddyName', name);
+                if (chosenBuddy) sessionStorage.setItem('buddyType', chosenBuddy);
+                return data;
             })
             .catch(error => {
                 console.error("Error getting buddy:", error);

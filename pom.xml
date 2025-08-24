@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>nl.hu.ipass</groupId>
@@ -120,5 +120,34 @@
         </plugin>
       </plugins>
     </pluginManagement>
+      <plugins>
+          <plugin>
+              <groupId>com.microsoft.azure</groupId>
+              <artifactId>azure-webapp-maven-plugin</artifactId>
+              <version>2.10.0</version>
+              <configuration>
+                  <schemaVersion>v2</schemaVersion>
+                  <resourceGroup>pomodatchi-1755931712830-rg</resourceGroup>
+                  <appName>pomodatchi-1755931712830</appName>
+                  <pricingTier>F1</pricingTier>
+                  <region>centralus</region>
+                  <runtime>
+                      <os>Linux</os>
+                      <javaVersion>Java 17</javaVersion>
+                      <webContainer>Tomcat 9.0</webContainer>
+                  </runtime>
+                  <deployment>
+                      <resources>
+                          <resource>
+                              <directory>${project.basedir}/target</directory>
+                              <includes>
+                                  <include>*.war</include>
+                              </includes>
+                          </resource>
+                      </resources>
+                  </deployment>
+              </configuration>
+          </plugin>
+      </plugins>
   </build>
 </project>

@@ -1,11 +1,14 @@
 export class TimerService {
 
     createTimer(focusMinutes, breakMinutes, loopAmount){
-        return fetch(`restservices/study/timer/create/${focusMinutes}/${breakMinutes}/${loopAmount}`, {
+        let fetchData  = {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(focusMinutes, breakMinutes, loopAmount)
-        })
+            body: JSON.stringify({
+                focusMinutes: focusMinutes, breakMinutes : breakMinutes, loopAmount : loopAmount
+            })
+        };
+        return fetch(`restservices/study/timer/create`, fetchData)
             .then(response => {
                 if (!response.ok){
                     return response.text().then(text => {
@@ -18,6 +21,12 @@ export class TimerService {
                     });
                 }
                 return response.json();
+            })
+            .then (data => {
+                sessionStorage.setItem("focusMinutes", String(focusMinutes));
+                sessionStorage.setItem("breakMinutes", String(breakMinutes));
+                sessionStorage.setItem("loopAmount", String(loopAmount));
+                return data;
             })
             .catch( error => {
                 console.error("Error creating timer:", error);
@@ -71,6 +80,21 @@ export class TimerService {
                 console.error("Error resuming timer:", error);
                 return null;
             });
+    }
+
+    getFocus(){
+        const focusTime = Number(sessionStorage.getItem("focusMinutes") ?? 25);
+        return focusTime;
+    }
+
+    getBreak(){
+        const breakTime = Number(sessionStorage.getItem("breakMinutes") ?? 5);
+        return breakTime;
+    }
+
+    getLoops(){
+        const loops = Number(sessionStorage.getItem("loopAmount") ?? 2);
+        return loops;
     }
 
 }

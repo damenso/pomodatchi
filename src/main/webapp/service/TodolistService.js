@@ -1,11 +1,12 @@
 export class TodolistService {
 
     addTaskToTodoList(taskMessage){
-        return fetch('restservices/study/todoList/add/', {
+        let fetchData = {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body : JSON.stringify(taskMessage)
-        })
+            body : JSON.stringify({taskMessage : taskMessage})
+        };
+        return fetch('restservices/study/todoList/add/', fetchData)
             .then( response => {
                 if (!response.ok){
                     return response.text().then(text => {
@@ -18,6 +19,12 @@ export class TodolistService {
                     })
                 }
                 return response.json();
+            })
+            .then(data => {
+                let todolist = JSON.parse(sessionStorage.getItem('tasks') || "[]");
+                todolist.push({data});
+                sessionStorage.setItem('tasks', JSON.stringify(todolist));
+                console.log("Updated toodolist", todolist);
             })
             .catch(error => {
                 console.error("Error adding task to todo-list", error);
