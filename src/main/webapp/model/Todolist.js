@@ -9,6 +9,10 @@ export default class Todolist {
         this.addTaskButton?.addEventListener("click",(event) => this.addTask(event));
         this.taskList?.addEventListener("click", (event) => this.deleteTask(event));
         this.todolistService = new TodolistService();
+
+        this.todolistSidebar = document.querySelector('#todolist-sidebar');
+        this.todolistSidebar?.addEventListener("click", (event) => this.deleteTask(event));
+        this.getTodoList();
     }
 
     addTask(event){
@@ -42,6 +46,23 @@ export default class Todolist {
         else if(event.target.tagName === "SPAN"){
             event.target.parentElement.remove();
         }
+    }
+
+    getTodoList(){
+        const tasks = JSON.parse(sessionStorage.getItem('tasks') || "[]");
+        this.todolistSidebar.innerHTML = '';
+        tasks.forEach(task => {
+            const li = document.createElement('li');
+            li.textContent = task.text;
+            if (task.completed) li.classList.add('checked');
+
+            const span = document.createElement('span'); // kruisje tonen
+            span.innerHTML = '\u00D7';
+            li.appendChild(span);
+
+            this.todolistSidebar.appendChild(li);
+        });
+
     }
 
 }

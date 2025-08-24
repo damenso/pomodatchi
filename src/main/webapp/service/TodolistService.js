@@ -60,13 +60,19 @@ export class TodolistService {
     getTodoList() {
         return fetch(`/restservices/study/todoList/`, {
             method: "GET",
-            headers: { "Content-Type": "application/json" }
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({todolist: todolist})
         })
-            .then(response => {
+            .then(async response => {
                 if (!response.ok) {
                     throw new Error("Failed to fetch todo-list");
                 }
-                return response.json();
+                const text = await response.text();
+                return text ? JSON.parse(text) : {};
+            })
+            .then(data =>{
+                sessionStorage.getItem("tasks")
+                return data;
             })
             .catch(error => {
                 console.error("Error fetching todo-list:", error);
