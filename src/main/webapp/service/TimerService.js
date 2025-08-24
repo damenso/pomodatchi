@@ -63,7 +63,7 @@ export class TimerService {
             method: "POST",
             headers: {"Content-Type": "application/json"},
         })
-            .then(response => {
+            .then(async response => {
                 if (!response.ok){
                     return response.text().then(text => {
                         try {
@@ -74,7 +74,8 @@ export class TimerService {
                         }
                     });
                 }
-                return response.json();
+                const text = await response.text();
+                return text ? JSON.parse(text) : {};
             })
             .catch( error => {
                 console.error("Error resuming timer:", error);
