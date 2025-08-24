@@ -6,7 +6,7 @@ export class StartupService {
             body : JSON.stringify({name: name, chosenBuddy: chosenBuddy,focusMinutes: focusMinutes,
                 breakMinutes: breakMinutes, loopAmount: loopAmount, todolist: todolist})
         })
-            .then(response => {
+            .then(async response => {
                 if (!response.ok){
                     return response.text().then(text => {
                         try {
@@ -17,7 +17,8 @@ export class StartupService {
                         }
                     });
                 }
-                return response.json();
+                const text = await response.text();
+                return text ? JSON.parse(text) : {};
             })
             .then(data =>{
                 sessionStorage.setItem('buddyName', name);
