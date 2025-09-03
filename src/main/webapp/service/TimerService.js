@@ -1,37 +1,34 @@
 export class TimerService {
 
     createTimer(focusMinutes, breakMinutes, loopAmount){
-        let fetchData  = {
-            method: "POST",
+        const url = `restservices/study/timer/create/${focusMinutes}/${breakMinutes}/${loopAmount}`;
+        return fetch (url, {method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({
-                focusMinutes: focusMinutes, breakMinutes : breakMinutes, loopAmount : loopAmount
-            })
-        };
-        return fetch(`restservices/study/timer/create`, fetchData)
-            .then(response => {
-                if (!response.ok){
-                    return response.text().then(text => {
-                        try {
-                            const json = JSON.parse(text);
-                            throw new Error(`Failed to create timer: ${json.message}`);
-                        } catch {
-                            throw new Error(`Failed to create timer: ${text}`);
-                        }
-                    });
-                }
-                return response.json();
-            })
-            .then (data => {
-                sessionStorage.setItem("focusMinutes", String(focusMinutes));
-                sessionStorage.setItem("breakMinutes", String(breakMinutes));
-                sessionStorage.setItem("loopAmount", String(loopAmount));
-                return data;
-            })
-            .catch( error => {
-                console.error("Error creating timer:", error);
-                return null;
-            });
+        })
+        .then(async response => {
+            if (!response.ok){
+                return response.text().then(text => {
+                    try {
+                        const json = JSON.parse(text);
+                        throw new Error(`Failed to create timer: ${json.message}`);
+                    } catch {
+                        throw new Error(`Failed to create timer: ${text}`);
+                    }
+                });
+            }
+            const text = await response.text();
+            return text ? JSON.parse(text) : {};
+        })
+        .then (data => {
+            sessionStorage.setItem("focusMinutes", String(focusMinutes));
+            sessionStorage.setItem("breakMinutes", String(breakMinutes));
+            sessionStorage.setItem("loopAmount", String(loopAmount));
+            return data;
+        })
+        .catch( error => {
+            console.error("Error creating timer:", error);
+            return null;
+        });
     }
 
     pauseTimer(){
@@ -39,7 +36,7 @@ export class TimerService {
             method: "POST",
             headers: {"Content-Type": "application/json"},
         })
-            .then(response => {
+            .then(async response => {
                 if (!response.ok){
                     return response.text().then(text => {
                         try {
@@ -50,7 +47,8 @@ export class TimerService {
                         }
                     });
                 }
-                return response.json();
+                const text = await response.text();
+                return text ? JSON.parse(text) : {};
             })
             .catch( error => {
                 console.error("Error pausing timer:", error);

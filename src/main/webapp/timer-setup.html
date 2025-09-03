@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <title>Pomodatchi starter</title>
-    <link rel="stylesheet" href="starter-style.css"/>
+    <title>Setup timer</title>
+    <link rel="stylesheet" href="timer-setup-style.css"/>
     <script type="module" src="model/Todolist.js"></script>
     <script type="module" src="model/Buddy.js"></script>
     <script type="module" src="model/Startup.js"></script>
@@ -15,9 +15,9 @@
     <button id="logout-button" type="button">Logout</button>
 </header>
 
-<img src="pomodatchi-logo.png" alt="Pomodatchi Logo" id="logo">
+<img src="./pomodatchi-logo.png" alt="Pomodatchi Logo" id="logo">
 
-<h1>Set your Pomodatchi timer and goals</h1>
+<h1>Set your Pomodatchi timer </h1>
 
 <form id="session-form">
     <div id="form-sections">
@@ -25,6 +25,7 @@
             <h2><span>Pick your time</span></h2>
             <label for="focus-time">Focus time</label>
             <select name="focus-time" id="focus-time">
+                <option value="2">2 (test input)</option>
                 <option value="15">15</option>
                 <option value="25">25</option>
                 <option value="40">40</option>
@@ -32,6 +33,7 @@
             </select>
             <label for="break-time">Break time</label>
             <select name="break-time" id="break-time">
+                <option value="1">1 (test input)</option>
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
@@ -43,23 +45,8 @@
                 <option value="4">4</option>
             </select>
         </div>
-
-        <div id="buddyPanel">
-            <h2><span>Choose your Buddy</span></h2>
-            <input type="text" id="buddy-name">
-            <button type="button" id="cat-buddy">Cat</button>
-            <button type="button" id="dog-buddy">Dog</button>
-        </div>
-
-        <div id="tasks">
-            <h2><span>Add tasks (optional)</span></h2>
-            <input type="text" id="task-content">
-            <button id="add-task-button" type="button">Add task</button>
-            <ul id="task-list"></ul>
-        </div>
     </div>
-
-    <button id="submit-button">Start Timer</button>
+    <button id="next-button">Next</button>
 </form>
 </body>
 </html>

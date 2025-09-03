@@ -7,39 +7,42 @@
     <script type="module" src="model/Buddy.js"></script>
     <script type="module" src="model/Timer.js"></script>
     <script type="module" src="model/Startup.js"></script>
+    <link href="dashboard.css" rel="stylesheet"/>
 </head>
 <body>
     <header>
         <button id="logout-button" type="button">Logout</button>
     </header>
     <section class="session-dashboard">
-        <aside class="sidebar">
-            <h1>Todo-List</h1>
-            <ul id="todolist-sidebar"></ul>
-        </aside>
-        <main class="main-view-dashboard">
-            <div id="timer-container">
-                <h1 class="timer">Timer</h1>
-                <p class="timer" id="timer" ></p>
-                <p id="timer-type"></p>
-                <p id="loops"></p>
-                <div class="timer-button-wrapper" id="timer-button-wrapper">
-                    <button id="start-timer-button">Start</button>
-                    <button id="pause-timer-button">Pause</button>
-                    <button id="resume-timer-button">Resume</button>
-                    <button id="reset-timer-button">Reset</button>
+        <div class="form-sections" id="form-sections">
+            <aside class="sidebar">
+                <h1>Todo-List</h1>
+                <ul id="todolist-sidebar"></ul>
+            </aside>
+            <main class="main-view-dashboard">
+                <div id="timer-container">
+                    <h1 class="timer">Timer</h1>
+                    <p class="timer" id="timer" ></p>
+                    <p id="timer-type"></p>
+                    <p id="loops"></p>
+                    <div class="timer-button-wrapper" id="timer-button-wrapper">
+                        <button id="start-timer-button">Start</button>
+                        <button id="pause-timer-button">Pause</button>
+                        <button id="resume-timer-button">Resume</button>
+                        <button id="reset-timer-button">Reset</button>
+                    </div>
                 </div>
-            </div>
-            <section class="buddy-container" id="buddy-container">
-                <h2>Buddy</h2>
-                <div class="buddy" id="buddy"></div>
-                <div class="buddy-button-wrapper" id="buddy-button-wrapper">
-                    <button id="feed-action-button" type="button">Feed</button>
-                    <button id="pet-action-button" type="button">Pet</button>
-                    <button id="adopt-action-button" type="button">Adopt</button>
-                </div>
-            </section>
-        </main>
+                <section class="buddy-container" id="buddy-container">
+                    <h1>Buddy</h1>
+                    <div class="buddy" id="buddy"></div>
+                    <div class="buddy-button-wrapper" id="buddy-button-wrapper">
+                        <button id="feed-action-button" type="button">Feed</button>
+                        <button id="pet-action-button" type="button">Pet</button>
+                        <button id="adopt-action-button" type="button">Adopt</button>
+                    </div>
+                </section>
+            </main>
+        </div>
     </section>
 </body>
 </html>

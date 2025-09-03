@@ -5,8 +5,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import nl.hu.ipass.domain.*;
 
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Path("/study")
@@ -34,7 +36,35 @@ public class StudyResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response setTimer(@PathParam("focusMinutes") int focusMinutes, @PathParam("breakMinutes") int breakMinutes, @PathParam("loopAmount") int loopAmount){
         timer.createTimer(focusMinutes, breakMinutes, loopAmount);
-        return Response.status(Response.Status.CREATED).entity(timer).build();
+
+
+        try {
+            System.out.println(System.getProperty("user.home"));
+            System.out.println(System.getProperty("user.dir"));
+            String base = System.getProperty("user.home");
+            java.nio.file.Path dataDir = java.nio.file.Paths.get(base, "pomodatchi","data");
+            java.nio.file.Files.createDirectories(dataDir);
+
+            java.nio.file.Path file = dataDir.resolve("timer.txt");
+
+            try (java.io.BufferedWriter w = java.nio.file.Files.newBufferedWriter(
+                    file,
+                    java.nio.charset.StandardCharsets.UTF_8,
+                    java.nio.file.StandardOpenOption.CREATE,
+                    java.nio.file.StandardOpenOption.APPEND)) {
+
+                w.write("Focus: " + focusMinutes + ", Break: " + breakMinutes + ", Loop: " + loopAmount);
+                w.newLine();
+            }
+
+            System.out.println("Timer opgeslagen in: " + file.toAbsolutePath());
+            return Response.status(Response.Status.CREATED).entity(timer).build();
+
+        } catch (IOException e){
+            e.printStackTrace();
+            return Response.serverError().entity("{\"message\":\"Kon niet naar timer schrijven\"}").build();
+        }
+
     }
 
     // pause/resume timer

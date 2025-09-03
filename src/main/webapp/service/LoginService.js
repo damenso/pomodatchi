@@ -37,11 +37,12 @@ export class LoginService{
             },
             body: JSON.stringify(registerData)
         })
-            .then(response => {
+            .then(async response => {
                 if (!response.ok) {
                     return response.json().then(error => { throw new Error(error.error); });
                 }
-                return response.json();
+                const text = await response.text();
+                return text ? JSON.parse(text) : {};
             })
             .then(data => {
                 sessionStorage.setItem("UserRegistered", username);

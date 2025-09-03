@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3e8ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(128, 0, 128, 0.3);
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+form div {
+    display: flex;
+    flex-direction: column;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #6a0dad;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #4b0082;
+}
+
+input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #d3b3ff;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #6a0dad;
+    box-shadow: 0 0 5px rgba(106, 13, 173, 0.5);
+}
+
+button {
+    padding: 10px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+#login-button,
+#register-button {
+    background-color: #8a2be2;
+}
+
+#login-button:hover,
+#register-button:hover {
+    background-color: #6a0dad;
+}
+
+#link-to-register,
+#link-to-login {
+    background-color: #9370db;
+}
+
+#link-to-register:hover,
+#link-to-login:hover {
+    background-color: #7b68ee;
+}
+
+#logout-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #d269ff;
+}
+
+#logout-button:hover {
+    background-color: #b030ff;
+}

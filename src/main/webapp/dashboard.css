@@ -1,0 +1,342 @@
+body {
+    font-family: 'Press Start 2P', cursive;
+    background-color:  #f3e8ff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin: 0;
+    color: #5e3d9e;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+
+#logout-button {
+    background-color: #a78bc9;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+#logout-button:hover {
+    background-color: #8c6bb3;
+    transform: scale(1.05);
+}
+
+#logo {
+    display: block;
+    margin: 0 auto 20px auto;
+    width: 120px;
+    height: auto;
+}
+
+h1 {
+    position: relative;
+    display: inline-block;
+    background-color: #a78bc9;
+    color: white;
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 25px;
+    margin: 0 auto 30px auto;
+    border-radius: 8px;
+    z-index: 1;
+}
+
+h1::before {
+    content: "";
+    position: absolute;
+    left: -20px;
+    top: 0;
+    width: 20px;
+    height: 100%;
+    background-color: #7d5fb2;
+    clip-path: polygon(100% 0, 0 50%, 100% 100%);
+    z-index: 0;
+}
+
+h1::after {
+    content: "";
+    position: absolute;
+    right: -20px;
+    top: 0;
+    width: 20px;
+    height: 100%;
+    background-color: #7d5fb2;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    z-index: 0;
+}
+
+form {
+    background-color: #ffffff;
+    padding: 25px 35px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(128, 0, 128, 0.3);
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#form-sections {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20px;
+    
+}
+
+#timer-inputs, #buddyPanel, #tasks {
+    flex: 1;
+    background-color: #f8f2fb;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(128, 0, 128, 0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+}
+
+h2 {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+h2::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background-color: #cbb0e8;
+    transform: translateY(-50%);
+    border-radius: 8px;
+    z-index: 0;
+}
+
+h2 span {
+    position: relative;
+    background-color: white;
+    padding: 10px 25px;
+    border-radius: 8px;
+    z-index: 1;
+    font-weight: bold;
+    color: #4b0082;
+    display: inline-block;
+    text-align: center;
+    font-size: 14px;
+}
+
+label {
+    font-weight: bold;
+    color: #5e3d9e;
+}
+
+input[type="text"], select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #d8c9f2;
+    outline: none;
+    font-family: inherit;
+}
+
+input[type="text"]:focus, select:focus {
+    border-color: #7d5fb2;
+    box-shadow: 0 0 5px rgba(125, 95, 178, 0.4);
+}
+
+button {
+    padding: 10px;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+#cat-buddy, #dog-buddy, #add-task-button, #submit-button {
+    background-color: #a78bc9;
+}
+
+#cat-buddy:hover, #dog-buddy:hover, #add-task-button:hover, #submit-button:hover {
+    background-color: #8c6bb3;
+    transform: scale(1.05);
+}
+
+#task-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+#task-list li {
+    background-color: #f3eaf8;
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    border: 1px solid #e0d2f3;
+    color: #5e3d9e;
+}
+
+#dashboard-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.sidebar {
+    flex: 1;
+    background-color: #f8f2fb;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(128, 0, 128, 0.15);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.sidebar h2 span {
+    font-size: 14px;
+}
+
+.sidebar #add-task-button {
+    margin-top: 5px;
+    padding: 6px 10px;
+    font-size: 11px;
+    align-self: flex-start;
+}
+
+#todolist-sidebar {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+#todolist-sidebar li {
+    background-color: #f3eaf8;
+    padding: 6px 8px;
+    margin-bottom: 4px;
+    border-radius: 4px;
+    border: 1px solid #e0d2f3;
+    color: #5e3d9e;
+    font-size: 11px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#todolist-sidebar li button {
+    background: none;
+    border: none;
+    color: #8c6bb3;
+    font-size: 10px;
+    cursor: pointer;
+    margin-left: 8px;
+}
+
+#todolist-sidebar li button:hover {
+    color: #5e3d9e;
+}
+
+.mainview-dashboard {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#timer-container {
+    background-color: #f8f2fb;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(128, 0, 128, 0.15);
+    text-align: center;
+}
+
+.timer-display {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 20px 0;
+    color: #4b0082;
+}
+
+.timer-button-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.buddy-container {
+    background-color: #f8f2fb;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(128, 0, 128, 0.15);
+    text-align: center;
+}
+
+.buddy {
+    width: 150px;
+    height: 150px;
+    margin: 10px auto 20px auto;
+    background-color: #f3eaf8;
+    border: 2px solid #d8c9f2;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #5e3d9e;
+    font-size: 12px;
+}
+
+.buddy-button-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.sidebar button,
+.timer-button-wrapper button,
+.buddy-button-wrapper button {
+    background-color: #a78bc9;
+    font-size: 11px;
+    padding: 8px 12px;
+}
+
+.sidebar button:hover,
+.timer-button-wrapper button:hover,
+.buddy-button-wrapper button:hover {
+    background-color: #8c6bb3;
+    transform: scale(1.05);
+}
+
+.dashboard-background {
+    background-color: #f0f0f0;
+    width: 100%;
+    padding: 40px 20px;
+    border-radius: 20px 20px 0 0;
+    margin-top: 20px;
+}
+
+@media (max-width: 900px) {
+    #form-sections,
+    #dashboard-container {
+        flex-direction: column;
+    }
+}

@@ -10,6 +10,8 @@ export default class Buddy {
         this.buddyService = new BuddyService();
         this.dogButton?.addEventListener("click", (event) => this.selectedBuddy(event));
         this.catButton?.addEventListener("click", (event) => this.selectedBuddy(event));
+        this.buddyContainer = document.querySelector('#buddy');
+
     }
 
     selectedBuddy(event){
@@ -29,7 +31,9 @@ export default class Buddy {
             this.buddyService.getChosenBuddy(name, "Cat")
             console.log(`Cat selected and its name is ${name}`);
         }
+    }
 
+    renderBuddyImage(){
 
     }
 
