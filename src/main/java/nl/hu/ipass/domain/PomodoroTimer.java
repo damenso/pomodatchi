@@ -20,7 +20,8 @@ public class PomodoroTimer{
         this.breakMinutes = breakMinutes;
         this.amountLoops = amountLoops;
 
-        runTimer();
+        new Thread(this::runTimer).start();
+        //runTimer();
     }
 
     public int getFocusMinutes() {
@@ -36,11 +37,11 @@ public class PomodoroTimer{
     }
 
     public void runTimer(){
-        for (int i = amountLoops; i >= 0; i--) {
-            if (switchToFocus() == true) {
-                switchToBreak() ;
-            } else if (switchToBreak() == true) {
-                switchToFocus();
+        for (int i = 0; i < amountLoops; i++) {
+            if (switchToFocus() != true) {
+                return;
+            } else if (switchToBreak() != true) {
+                return;
             }
         }
     }
@@ -57,24 +58,23 @@ public class PomodoroTimer{
 
         for (int i = focusInSeconds; i >= 0; i--) {
             if (paused == true) {
-                int pausedOnSecond = i;
-                System.out.println(pausedOnSecond);
-                break;
-            } else if (paused == false) {
-                passedFocusInSeconds = (System.currentTimeMillis() - startTime) / 1000;
-                System.out.println(i);
+                System.out.println(focusInSeconds);
+                isFocusRunning = false;
+                return false;
             }
+            passedFocusInSeconds = (System.currentTimeMillis() - startTime) / 1000;
+            System.out.println(i);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.out.println("Stopped early");
+                isFocusRunning = false;
+                return false;
             }
         }
-        if (focusInSeconds == 0){
-            return true;
-        }
-        return false;
+        isFocusRunning = false;
+        return true;
     }
 
     public long getpassedFocusInSeconds() {
@@ -85,23 +85,19 @@ public class PomodoroTimer{
         int breakInSeconds = breakMinutes * 60;
         for (int i = breakInSeconds; i >= 0; i--) {
             if (paused == true) {
-                int pausedOnSecond = i;
-                System.out.println(pausedOnSecond);
-                break;
-            } else if (paused == false) {
-                System.out.println(i);
+                System.out.println(breakInSeconds);
+                return false;
             }
+            System.out.println(i);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.out.println("Stopped early");
+                return false;
             }
         }
-        if (breakInSeconds == 0){
-            return true;
-        }
-        return false;
+        return true;
     }
 
     public void pauseTimer(){

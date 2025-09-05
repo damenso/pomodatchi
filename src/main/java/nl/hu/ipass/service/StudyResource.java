@@ -6,9 +6,11 @@ import javax.ws.rs.core.Response;
 import nl.hu.ipass.domain.*;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.List;
 
 @Path("/study")
@@ -34,36 +36,47 @@ public class StudyResource {
     @Path("/timer/create/{focusMinutes}/{breakMinutes}/{loopAmount}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response setTimer(@PathParam("focusMinutes") int focusMinutes, @PathParam("breakMinutes") int breakMinutes, @PathParam("loopAmount") int loopAmount){
-        timer.createTimer(focusMinutes, breakMinutes, loopAmount);
-
-
+    public Response setTimer(@PathParam("focusMinutes") int focusMinutes, @PathParam("breakMinutes") int breakMinutes, @PathParam("loopAmount") int loopAmount) throws IOException {
+        //source: https://www.w3schools.com/java/java_files_create.asp
+        // voor bufferedWriter: https://stackoverflow.com/questions/18549704/create-a-new-line-in-javas-filewriter van blackbird104
         try {
-            System.out.println(System.getProperty("user.home"));
-            System.out.println(System.getProperty("user.dir"));
-            String base = System.getProperty("user.home");
-            java.nio.file.Path dataDir = java.nio.file.Paths.get(base, "pomodatchi","data");
-            java.nio.file.Files.createDirectories(dataDir);
-
-            java.nio.file.Path file = dataDir.resolve("timer.txt");
-
-            try (java.io.BufferedWriter w = java.nio.file.Files.newBufferedWriter(
-                    file,
-                    java.nio.charset.StandardCharsets.UTF_8,
-                    java.nio.file.StandardOpenOption.CREATE,
-                    java.nio.file.StandardOpenOption.APPEND)) {
-
-                w.write("Focus: " + focusMinutes + ", Break: " + breakMinutes + ", Loop: " + loopAmount);
-                w.newLine();
-            }
-
-            System.out.println("Timer opgeslagen in: " + file.toAbsolutePath());
-            return Response.status(Response.Status.CREATED).entity(timer).build();
-
-        } catch (IOException e){
+            BufferedWriter output = new BufferedWriter(new FileWriter("C:\\Users\\damen\\herkansing\\pomodatchi\\src\\main\\java\\nl\\hu\\ipass\\data\\timer.txt", true)) ;
+            output.append(focusMinutes + "," + breakMinutes + "," + loopAmount);
+            output.newLine();
+            output.close();
+            timer.createTimer(focusMinutes, breakMinutes, loopAmount);
+            return Response.ok().build();
+        }catch (IOException e) {
+            System.out.println(e);
             e.printStackTrace();
-            return Response.serverError().entity("{\"message\":\"Kon niet naar timer schrijven\"}").build();
+            return Response.serverError().build();
         }
+//        try {
+//            System.out.println(System.getProperty("user.home"));
+//            System.out.println(System.getProperty("user.dir"));
+//            String base = System.getProperty("user.home");
+//            java.nio.file.Path dataDir = java.nio.file.Paths.get(base, "pomodatchi","data");
+//            java.nio.file.Files.createDirectories(dataDir);
+//
+//            java.nio.file.Path file = dataDir.resolve("timer.txt");
+//
+//            try (java.io.BufferedWriter w = java.nio.file.Files.newBufferedWriter(
+//                    file,
+//                    java.nio.charset.StandardCharsets.UTF_8,
+//                    java.nio.file.StandardOpenOption.CREATE,
+//                    java.nio.file.StandardOpenOption.APPEND)) {
+//
+//                w.write("Focus: " + focusMinutes + ", Break: " + breakMinutes + ", Loop: " + loopAmount);
+//                w.newLine();
+//            }
+//
+//            System.out.println("Timer opgeslagen in: " + file.toAbsolutePath());
+//            return Response.status(Response.Status.CREATED).entity(timer).build();
+//
+//        } catch (IOException e){
+//            e.printStackTrace();
+//            return Response.serverError().entity("{\"message\":\"Kon niet naar timer schrijven\"}").build();
+//        }
 
     }
 
