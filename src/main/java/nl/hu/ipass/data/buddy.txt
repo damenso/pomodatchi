@@ -1,0 +1,1 @@
+Buddy name: bob, buddy age:BABY buddy type: Cat

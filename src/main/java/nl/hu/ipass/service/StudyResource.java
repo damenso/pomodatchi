@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("/study")
 public class StudyResource {
@@ -24,11 +25,21 @@ public class StudyResource {
     @POST
     @Path("/buddy/{name}/{chosenBuddy}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response chooseBuddy(@PathParam("name") String name, @PathParam("chosenBuddy") String chosenBuddy){
+    public Response chooseBuddy(@PathParam("name") String name, @PathParam("chosenBuddy") String chosenBuddy) throws IOException {
         buddy.createBuddy(name, chosenBuddy);
         studySession.setCurrentBuddy(buddy);
         buddy.getAge();
-        return Response.ok(buddy).build();
+        try {
+            BufferedWriter output = new BufferedWriter(new FileWriter("C:\\Users\\damen\\herkansing\\pomodatchi\\src\\main\\java\\nl\\hu\\ipass\\data\\buddy.txt", true));
+            output.append("Buddy name: " + name + ", buddy age: " + buddy.getAge() +  " buddy type: " + chosenBuddy);
+            output.newLine();
+            output.close();
+            return Response.ok().build();
+        } catch (IOException e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return Response.serverError().build();
+        }
     }
 
     // set timer
@@ -41,7 +52,7 @@ public class StudyResource {
         // voor bufferedWriter: https://stackoverflow.com/questions/18549704/create-a-new-line-in-javas-filewriter van blackbird104
         try {
             BufferedWriter output = new BufferedWriter(new FileWriter("C:\\Users\\damen\\herkansing\\pomodatchi\\src\\main\\java\\nl\\hu\\ipass\\data\\timer.txt", true)) ;
-            output.append(focusMinutes + "," + breakMinutes + "," + loopAmount);
+            output.append("Focus: " + focusMinutes + ", Break: " + breakMinutes + ", Loops:" + loopAmount);
             output.newLine();
             output.close();
             timer.createTimer(focusMinutes, breakMinutes, loopAmount);
@@ -51,32 +62,6 @@ public class StudyResource {
             e.printStackTrace();
             return Response.serverError().build();
         }
-//        try {
-//            System.out.println(System.getProperty("user.home"));
-//            System.out.println(System.getProperty("user.dir"));
-//            String base = System.getProperty("user.home");
-//            java.nio.file.Path dataDir = java.nio.file.Paths.get(base, "pomodatchi","data");
-//            java.nio.file.Files.createDirectories(dataDir);
-//
-//            java.nio.file.Path file = dataDir.resolve("timer.txt");
-//
-//            try (java.io.BufferedWriter w = java.nio.file.Files.newBufferedWriter(
-//                    file,
-//                    java.nio.charset.StandardCharsets.UTF_8,
-//                    java.nio.file.StandardOpenOption.CREATE,
-//                    java.nio.file.StandardOpenOption.APPEND)) {
-//
-//                w.write("Focus: " + focusMinutes + ", Break: " + breakMinutes + ", Loop: " + loopAmount);
-//                w.newLine();
-//            }
-//
-//            System.out.println("Timer opgeslagen in: " + file.toAbsolutePath());
-//            return Response.status(Response.Status.CREATED).entity(timer).build();
-//
-//        } catch (IOException e){
-//            e.printStackTrace();
-//            return Response.serverError().entity("{\"message\":\"Kon niet naar timer schrijven\"}").build();
-//        }
 
     }
 
@@ -98,12 +83,28 @@ public class StudyResource {
     @POST
     @Path("/todoList/add/{taskMessage}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addTask(@PathParam("taskMessage") String taskMessage){
+    public Response addTask(@PathParam("taskMessage") String taskMessage) throws IOException {
         if (taskMessage == null || taskMessage.isEmpty()) {
             return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\":\"message is required\"}").build();
         }
         toDoList.addTask(taskMessage);
-        return Response.status(Response.Status.CREATED).entity(taskMessage).build();
+        List<Task> todolist = toDoList.getTasks();
+        String readable = todolist.stream()
+                .map(Task::getMessage)
+                .collect(Collectors.joining(", ",
+                        "Tasks: [", "]"));
+        try {
+            BufferedWriter output = new BufferedWriter(new FileWriter("C:\\Users\\damen\\herkansing\\pomodatchi\\src\\main\\java\\nl\\hu\\ipass\\data\\todolist.txt", true));
+            output.append (readable);
+            output.newLine();
+            output.close();
+
+            return Response.status(Response.Status.CREATED).entity(taskMessage).build();
+        } catch (IOException e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return Response.serverError().build();
+        }
     }
 
     // delete task from todolist

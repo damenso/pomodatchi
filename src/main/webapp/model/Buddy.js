@@ -17,7 +17,7 @@ export default class Buddy {
     selectedBuddy(event){
         const name = this.nameInput?.value;
         if (!name){
-            console.warn("Vul eerst een naam in.");
+            console.warn("Enter the buddy name first.");
         }
 
         if (event.currentTarget?.id === 'dog-buddy'){
@@ -33,9 +33,6 @@ export default class Buddy {
         }
     }
 
-    renderBuddyImage(){
-
-    }
 
 }
 

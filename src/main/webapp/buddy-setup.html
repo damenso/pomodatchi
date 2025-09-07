@@ -1,6 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <title>Setup buddy</title>
 </head>
+<body>
+ <header>
+     <button id="logout-button"  type="button">Logout</button>
+ </header>
+
+ <img src="./pomodatchi-logo.png" alt="Pomodatchi Logo" id="logo">
+<h1>Pick your preferred buddy</h1>
+
+<form id="session-form">
+    <div id="form-sections">
+        <input type="text" id="buddy-name">
+        <div id="cat-container">
+            <img src="assets/cat_buddy_setup.png" alt="Pixel cat picture">
+            <button id="cat-button" type="button">Cat</button>
+        </div>
+        <div id="dog-container">
+            <img src="assets/dog_buddy_setup.png" alt="Pixel dog picture">
+            <button id="dog-button" type="button">Dog</button>
+        </div>
+    </div>
+    <button id="next-button" type="button">Next</button>
+</form>
+</body>
 </html>
