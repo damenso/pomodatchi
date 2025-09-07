@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <title>Setup todolist</title>
+    <link rel="stylesheet" href="todolist-setup.css"/>
+    <script type="module" src="model/Todolist.js"></script>
+</head>
+<body>
+<header>
+    <button id="logout-button"  type="button">Logout</button>
+</header>
+
+<img src="./pomodatchi-logo.png" alt="Pomodatchi Logo" id="logo">
+<h1>Add your tasks for this session</h1>
+
+<form id="session-form">
+    <div id="form-sections">
+        <div id="tasks">
+            <input type="text" id="task-content" placeholder="Enter task">
+            <button id="add-task-button" type="button">Add task</button>
+            <ul id="task-list"></ul>
+        </div>
+    </div>
+    <button id="next-button" type="button">Next</button>
+</form>
+</body>
+</html>

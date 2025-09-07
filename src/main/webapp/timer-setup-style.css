@@ -1,0 +1,48 @@
+/* ===== palette (logo) ===== */
+:root{
+    --bg:#EFE1FC; --surface:#C4ACD5; --accent:#613179;
+    --accent2:#906CA5; --text:#380153; --border:#380153; --shadow:#613179;
+    --px:4px;
+}
+
+/* ==== base & centering ==== */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+    margin:0; color:var(--text); background:var(--bg);
+    font-family:"Press Start 2P", system-ui, sans-serif;
+    display:grid; place-items:center; /* center alles */
+    padding:80px 16px; /* ruimte voor fixed header */
+}
+header{position:fixed; top:16px; right:16px}
+#logout-button{padding:10px 14px}
+
+#logo{height:54px; display:block; margin:0 auto 8px; image-rendering:pixelated}
+h1{text-align:center; margin:8px 0 18px}
+
+/* ==== formulier & card ==== */
+#session-form{display:grid; place-items:center; gap:16px}
+#form-sections{width:100%; display:grid; place-items:center}
+#timer-inputs{
+    width:min(560px, 100%);
+    background:var(--surface);
+    border:var(--px) solid var(--border);
+    box-shadow:calc(var(--px)) calc(var(--px)) 0 0 var(--shadow), calc(2*var(--px)) calc(2*var(--px)) 0 0 var(--border);
+    padding:22px; border-radius:0;
+}
+#timer-inputs label{display:block; margin:12px 0 6px; font-size:12px}
+select{
+    width:100%; padding:12px 10px; font:inherit; color:var(--text);
+    background:#f4eaff; border:var(--px) solid var(--border);
+    box-shadow:inset -4px -4px 0 #ffffff80, inset 4px 4px 0 #0002;
+}
+select:focus{outline:var(--px) dashed var(--border); outline-offset:var(--px); background:#fff}
+
+button{
+    appearance:none; font:inherit; color:#fff; background:var(--accent);
+    border:var(--px) solid var(--border); padding:12px 16px; cursor:pointer;
+    box-shadow:calc(var(--px)) calc(var(--px)) 0 0 var(--shadow), calc(2*var(--px)) calc(2*var(--px)) 0 0 var(--border);
+    text-transform:uppercase; letter-spacing:.5px;
+}
+#next-button{display:block; margin:8px auto 0}
+#logout-button{background:var(--accent2); color:#fff}

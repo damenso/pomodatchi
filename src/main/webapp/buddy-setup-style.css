@@ -1,0 +1,99 @@
+:root{
+    --bg:#EFE1FC; --surface:#C4ACD5; --accent:#613179;
+    --accent2:#906CA5; --text:#380153; --border:#380153; --shadow:#613179;
+    --px:4px;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+    margin:0; color:var(--text); background:var(--bg);
+    font-family:"Press Start 2P", system-ui, sans-serif;
+    display:grid; place-items:center;
+    padding:80px 16px;
+}
+header{position:fixed; top:16px; right:16px}
+#logout-button{padding:10px 14px; background:var(--accent2); color:#fff; border:var(--px) solid var(--border)}
+#logo{height:54px; display:block; margin:0 auto 8px; image-rendering:pixelated}
+h1{text-align:center; margin:8px 0 18px}
+
+#session-form{
+    max-width: 980px;
+    margin: 0 auto;
+    display: grid;
+    gap: 20px;
+    justify-items: center;
+}
+
+
+#form-sections{
+    width: 100%;
+    display: grid;
+    gap: 24px;
+    justify-items: center;
+}
+
+
+#buddy-name{
+    width: 260px;
+    padding: 10px 12px;
+    font: inherit;
+    color: var(--text);
+    background: #fff;
+    border: var(--px) solid var(--border);
+    border-radius: 999px; /* pill */
+    box-shadow:
+            inset -4px -4px 0 #ffffff80,
+            inset  4px  4px 0 #0002,
+            var(--px) var(--px) 0 0 var(--shadow);
+    text-align: center;
+    margin: 0 auto 8px;
+}
+#buddy-name::placeholder{color:#7b6296}
+#buddy-name:focus{outline:var(--px) dashed var(--border); outline-offset:var(--px)}
+
+
+#buddy-options{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(220px, 340px));
+    gap: 28px;
+    justify-content: center;
+    align-items: start;
+}
+
+
+#cat-container, #dog-container{
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+    text-align: center;
+
+    background: var(--surface);
+    border: var(--px) solid var(--border);
+    box-shadow:
+            calc(var(--px)) calc(var(--px)) 0 0 var(--shadow),
+            calc(2*var(--px)) calc(2*var(--px)) 0 0 var(--border);
+    padding: 16px;
+}
+#cat-container img, #dog-container img{
+    width: 220px; max-width: 100%; height: auto;
+    display: block; margin: 6px auto 12px;
+    image-rendering: pixelated;
+    background:#C4ACD5; border:var(--px) solid var(--border);
+    box-shadow: var(--px) var(--px) 0 0 var(--shadow);
+}
+
+
+button{
+    appearance:none; font:inherit; color:#fff; background:var(--accent);
+    border:var(--px) solid var(--border); padding:12px 16px; cursor:pointer;
+    box-shadow:
+            calc(var(--px)) calc(var(--px)) 0 0 var(--shadow),
+            calc(2*var(--px)) calc(2*var(--px)) 0 0 var(--border);
+}
+#next-button{display:block; margin:10px auto 0}
+
+@media (max-width: 640px){
+    #buddy-options{ grid-template-columns: 1fr; }
+}
