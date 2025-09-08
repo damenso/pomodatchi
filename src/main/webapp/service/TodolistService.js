@@ -1,13 +1,13 @@
 export class TodolistService {
 
     addTaskToTodoList(taskMessage){
-        let fetchData = {
+        const url = `/restservices/study/todolist/add/${taskMessage}`;
+        return fetch(url, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body : JSON.stringify({taskMessage : taskMessage})
-        };
-        return fetch('restservices/study/todoList/add/', fetchData)
-            .then( response => {
+        })
+            .then(async response => {
                 if (!response.ok){
                     return response.text().then(text => {
                         try {
@@ -18,7 +18,8 @@ export class TodolistService {
                         }
                     })
                 }
-                return response.json();
+                const text = await response.text();
+                return text ? JSON.parse(text) : {};
             })
             .then(data => {
                 let todolist = JSON.parse(sessionStorage.getItem('tasks') || "[]");

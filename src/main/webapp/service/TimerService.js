@@ -2,7 +2,8 @@ export class TimerService {
 
     createTimer(focusMinutes, breakMinutes, loopAmount){
         const url = `restservices/study/timer/create/${focusMinutes}/${breakMinutes}/${loopAmount}`;
-        return fetch (url, {method: "POST",
+        return fetch (url, {
+            method: "POST",
             headers: {"Content-Type": "application/json"},
         })
         .then(async response => {

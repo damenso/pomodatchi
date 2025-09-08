@@ -7,3 +7,5 @@
 Focus: 1, Break: 5, Loops:4
 Focus: 2, Break: 1, Loops:2
 Focus: 2, Break: 1, Loops:2
+Focus: 15, Break: 1, Loops:2
+Focus: 2, Break: 1, Loops:2

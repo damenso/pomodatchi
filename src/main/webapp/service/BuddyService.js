@@ -1,12 +1,11 @@
 export class BuddyService{
     getChosenBuddy(name, chosenBuddy){
-        let fetchData = {
+        const url = `/restservices/study/buddy/${name}/${chosenBuddy}`;
+        return fetch(url, {
             method: "POST",
             headers: { "Content-Type": "application/json"},
-            body: JSON.stringify({name: name, chosenBuddy : chosenBuddy})
-        }
-        return fetch(`restservices/study/buddy/`, fetchData)
-            .then(response => {
+        })
+            .then(async response => {
                 if (!response.ok){
                     return response.text().then(text => {
                         try {
@@ -17,7 +16,8 @@ export class BuddyService{
                         }
                     });
                 }
-                return response.json();
+                const text = await response.text();
+                return text ? JSON.parse(text) : {};
             })
             .then(data =>{
                 sessionStorage.setItem('buddyName', name);

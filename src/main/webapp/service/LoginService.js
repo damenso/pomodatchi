@@ -1,67 +1,54 @@
-export class LoginService{
-
-    login(username, password){
-        let fetchData = {
-            method : "POST",
-            headers: {"Content-Type": "application/json"},
-            body : JSON.stringify({username: username, password: password})
-        };
-
-        return fetch("/restservices/authentication/login", fetchData)
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    alert("Verkeerde username of wachtwoord")
-                }
-            })
-            .then(data =>{
-                sessionStorage.setItem("LoggedInUser", username);
-                return data
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }
-
-    register(username, password){
-        const registerData = {
-            username: username,
-            password: password,
-        };
-
-        fetch("/restservices/authentication/register", {
+export class LoginService {
+    async login(username, password){
+        const fetchData = {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(registerData)
-        })
-            .then(async response => {
-                if (!response.ok) {
-                    return response.json().then(error => { throw new Error(error.error); });
-                }
-                const text = await response.text();
-                return text ? JSON.parse(text) : {};
-            })
-            .then(data => {
-                sessionStorage.setItem("UserRegistered", username);
-                alert(data.message);
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("Registration failed: " + error.message);
-            });
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({ username, password })
+        };
+
+        const response = await fetch("/restservices/authentication/login", fetchData);
+
+        if (!response.ok) {
+            let msg = "Verkeerde username of wachtwoord";
+            try {
+                const err = await response.json();
+                if (err?.error) msg = err.error;
+            } catch(_) {}
+            throw new Error(msg);
+        }
+
+        const text = await response.text();
+        const data = text ? JSON.parse(text) : {};
+
+        sessionStorage.setItem("LoggedInUser", username);
+        return data;
     }
 
-    isLoggedIn(username){
-       return sessionStorage.getItem("LoggedInUser") !== null;
+    async register(username, password){
+        const response = await fetch("/restservices/authentication/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password })
+        });
+
+        if (!response.ok) {
+            const err = await response.json().catch(() => ({}));
+            throw new Error(err.error || "Registration failed");
+        }
+
+        const text = await response.text();
+        const data = text ? JSON.parse(text) : {};
+        sessionStorage.setItem("UserRegistered", username);
+        alert(data.message || "Registration successful");
+        return data;
     }
 
-    logout(username){
+    isLoggedIn(){
+        return sessionStorage.getItem("LoggedInUser") !== null;
+    }
+
+    logout(){
         sessionStorage.removeItem("LoggedInUser");
-        sessionStorage.clear();
-        window.location.href = "index.html"
+        window.location.href = "index.html";
     }
-
 }

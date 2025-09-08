@@ -51,8 +51,7 @@ export default class Startup{
         }
 
     }
-
-
+    
     logoutUser(event){
         event.preventDefault();
         this.loginService.logout();
