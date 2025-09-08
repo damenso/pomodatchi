@@ -1,11 +1,4 @@
-60,5,4
-60,5,4
-1,5,4
-1,5,4
-1,5,4
-1,5,4
-Focus: 1, Break: 5, Loops:4
 Focus: 2, Break: 1, Loops:2
 Focus: 2, Break: 1, Loops:2
-Focus: 15, Break: 1, Loops:2
+Focus: 2, Break: 1, Loops:2
 Focus: 2, Break: 1, Loops:2

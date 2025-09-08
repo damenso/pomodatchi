@@ -1,11 +1,10 @@
 export class TodolistService {
 
     addTaskToTodoList(taskMessage){
-        const url = `/restservices/study/todolist/add/${taskMessage}`;
+        const url = `/restservices/study/todoList/add/${taskMessage}`;
         return fetch(url, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
-            body : JSON.stringify({taskMessage : taskMessage})
         })
             .then(async response => {
                 if (!response.ok){
@@ -21,11 +20,11 @@ export class TodolistService {
                 const text = await response.text();
                 return text ? JSON.parse(text) : {};
             })
-            .then(data => {
-                let todolist = JSON.parse(sessionStorage.getItem('tasks') || "[]");
-                todolist.push({data});
-                sessionStorage.setItem('tasks', JSON.stringify(todolist));
-                console.log("Updated toodolist", todolist);
+            .then(list => {
+                // REPLACE session list with server's list
+                sessionStorage.setItem('tasks', JSON.stringify(list));
+                console.log("Synced todolist (after add)", list);
+                return list;
             })
             .catch(error => {
                 console.error("Error adding task to todo-list", error);
@@ -33,13 +32,12 @@ export class TodolistService {
             });
     }
 
-    deleteTaskToTodolist(taskMessage) {
-        return fetch(`restservices/study/todoList/delete`, {
+    deleteTaskFromTodoList(taskMessage) {
+        return fetch(`/restservices/study/todoList/delete/${taskMessage}`, {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(taskMessage)
         })
-            .then(response => {
+            .then(async response => {
                 if (!response.ok) {
                     return response.text().then(text => {
                         try {
@@ -50,7 +48,14 @@ export class TodolistService {
                         }
                     });
                 }
-                return response.json();
+                const text = await response.text();
+                return text ? JSON.parse(text) : {};
+            })
+            .then(list => {
+                // REPLACE session list with server's list (exact same list as backend wrote)
+                sessionStorage.setItem('tasks', JSON.stringify(list));
+                console.log("Synced todolist (after delete)", list);
+                return list;
             })
             .catch(error => {
                 console.error("Error deleting task from todo-list", error);
@@ -62,7 +67,6 @@ export class TodolistService {
         return fetch(`/restservices/study/todoList/`, {
             method: "GET",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({todolist: todolist})
         })
             .then(async response => {
                 if (!response.ok) {

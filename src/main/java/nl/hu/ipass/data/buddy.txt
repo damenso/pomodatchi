@@ -1,3 +1,7 @@
-Buddy name: bob, buddy age:BABY buddy type: Cat
-Buddy name: Buddyy, buddy age: BABY buddy type: Dog
-Buddy name: B, buddy age: BABY buddy type: Cat
+
+Buddy name: bella, buddy age: BABY buddy type: Cat
+Buddy name: bella, buddy age: BABY buddy type: Cat
+Buddy name: bella, buddy age: BABY buddy type: Cat
+Buddy name: bella, buddy age: BABY buddy type: Cat
+Buddy name: bella, buddy age: BABY buddy type: Cat
+Buddy name: bella, buddy age: BABY buddy type: Cat

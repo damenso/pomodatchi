@@ -17,7 +17,6 @@ export default class Todolist {
 
     addTask(event){
         event.preventDefault();
-        console.log("Ik kom bij de methode yay")
         const taskMessage = this.taskContent.value;
 
         if (!taskMessage){
@@ -39,13 +38,19 @@ export default class Todolist {
 
 
     deleteTask(event){
-        console.log("delete is got");
         if(event.target.tagName === "LI"){
             event.target.classList.toggle("checked");
+            return;
         }
-        else if(event.target.tagName === "SPAN"){
-            event.target.parentElement.remove();
+        if(event.target.tagName === "SPAN"){
+            const li = event.target.parentElement;
+            const taskMessage = (li.childNodes[0].nodeValue || "").trim();
+            this.todolistService.deleteTaskFromTodoList(taskMessage)
+                .then(ok => {
+                    if (ok !== null && ok !== false) li.remove();
+                });
         }
+
     }
 
     getTodoList(){

@@ -88,22 +88,32 @@ public class StudyResource {
             return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\":\"message is required\"}").build();
         }
         toDoList.addTask(taskMessage);
-        List<Task> todolist = toDoList.getTasks();
-        String readable = todolist.stream()
-                .map(Task::getMessage)
-                .collect(Collectors.joining(", ",
-                        "Tasks: [", "]"));
+
         try {
-            BufferedWriter output = new BufferedWriter(new FileWriter("C:\\Users\\damen\\herkansing\\pomodatchi\\src\\main\\java\\nl\\hu\\ipass\\data\\todolist.txt", true));
-            output.append (readable);
-            output.newLine();
+            BufferedWriter output = new java.io.BufferedWriter(
+                    new java.io.FileWriter("C:\\Users\\damen\\herkansing\\pomodatchi\\src\\main\\java\\nl\\hu\\ipass\\data\\todolist.txt", false)
+            );
+            List<Task> tasks = toDoList.getTasks();
+            for (Task t : tasks) {
+                output.write(t.getMessage());
+                output.newLine();
+            }
             output.close();
 
-            return Response.status(Response.Status.CREATED).entity(taskMessage).build();
-        } catch (IOException e){
-            System.out.println(e.getMessage());
+            StringBuilder sb = new StringBuilder();
+            sb.append("[");
+            for (int i = 0; i < tasks.size(); i++) {
+                String msg = tasks.get(i).getMessage();
+                String escaped = msg.replace("\\", "\\\\").replace("\"", "\\\"");
+                sb.append("{\"text\":\"").append(escaped).append("\",\"completed\":false}");
+                if (i < tasks.size() - 1) sb.append(",");
+            }
+            sb.append("]");
+            return Response.status(Response.Status.CREATED).entity(sb.toString()).build();
+
+        } catch (java.io.IOException e) {
             e.printStackTrace();
-            return Response.serverError().build();
+            return Response.serverError().entity("{\"error\":\"failed to write file\"}").build();
         }
     }
 
@@ -117,13 +127,47 @@ public class StudyResource {
         //Dus een task word geidentificeerd via de message nu
         //Al wil je het veranderen naar id ga dan naar ToDoList deleteTask en verander String taskMessage argument naar long id
         if (taskMessage == null || taskMessage.isEmpty()) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\":\"message is required\"}").build();
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("{\"error\":\"message is required\"}").build();
         }
         if (toDoList.getTasks().isEmpty()){
-            return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\":\"todo list is empty\"}").build();
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("{\"error\":\"todo list is empty\"}").build();
         }
-        toDoList.deleteTask(toDoList.getTask(taskMessage));
-        return Response.ok().build();
+
+        Task task = toDoList.getTask(taskMessage);
+        if (task == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity("{\"error\":\"task not found\"}").build();
+        }
+        toDoList.deleteTask(task);
+
+        try {
+            BufferedWriter output = new BufferedWriter(
+                    new FileWriter("C:\\Users\\damen\\herkansing\\pomodatchi\\src\\main\\java\\nl\\hu\\ipass\\data\\todolist.txt", false)
+            );
+            List<Task> tasks = toDoList.getTasks();
+            for (Task t : tasks) {
+                output.write(t.getMessage());
+                output.newLine();
+            }
+            output.close();
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("[");
+            for (int i = 0; i < tasks.size(); i++) {
+                String msg = tasks.get(i).getMessage();
+                String escaped = msg.replace("\\", "\\\\").replace("\"", "\\\"");
+                sb.append("{\"text\":\"").append(escaped).append("\",\"completed\":false}");
+                if (i < tasks.size() - 1) sb.append(",");
+            }
+            sb.append("]");
+            return Response.ok(sb.toString()).build();
+
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+            return Response.serverError().entity("{\"error\":\"failed to write file\"}").build();
+        }
     }
 
     // get todolist
