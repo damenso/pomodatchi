@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Pomodatchi session</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <script type="module" src="model/Todolist.js"></script>
     <script type="module" src="model/Buddy.js"></script>
     <script type="module" src="model/Timer.js"></script>
@@ -14,17 +15,21 @@
         <button id="logout-button" type="button">Logout</button>
     </header>
     <section class="session-dashboard">
-        <div class="form-sections" id="form-sections">
-            <aside class="sidebar">
+        <div class="form-sections pixel-frame" id="form-sections">
+            <aside class="sidebar pixel-frame">
                 <h1>Todo-List</h1>
                 <ul id="todolist-sidebar"></ul>
             </aside>
+
             <main class="main-view-dashboard">
-                <div id="timer-container">
+                <div id="timer-container" class="pixel-frame">
                     <h1 class="timer">Timer</h1>
-                    <p class="timer" id="timer" ></p>
-                    <p id="timer-type"></p>
-                    <p id="loops"></p>
+                    <div class="timer-display">
+                        <p class="timer" id="timer"></p>
+                        <p id="timer-type"></p>
+                        <p id="loops"></p>
+                    </div>
+
                     <div class="timer-button-wrapper" id="timer-button-wrapper">
                         <button id="start-timer-button">Start</button>
                         <button id="pause-timer-button">Pause</button>
@@ -32,7 +37,8 @@
                         <button id="reset-timer-button">Reset</button>
                     </div>
                 </div>
-                <section class="buddy-container" id="buddy-container">
+
+                <section class="buddy-container pixel-frame" id="buddy-container">
                     <h1>Buddy</h1>
                     <div class="buddy" id="buddy"></div>
                     <div class="buddy-button-wrapper" id="buddy-button-wrapper">

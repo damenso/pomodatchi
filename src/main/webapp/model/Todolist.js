@@ -10,9 +10,14 @@ export default class Todolist {
         this.taskList?.addEventListener("click", (event) => this.deleteTask(event));
         this.todolistService = new TodolistService();
 
+        this.nextButton = document.querySelector('#next-button');
+        this.nextButton?.addEventListener("click", (event) => this.nextPage(event));
+
         this.todolistSidebar = document.querySelector('#todolist-sidebar');
         this.todolistSidebar?.addEventListener("click", (event) => this.deleteTask(event));
-        this.getTodoList();
+        if (this.todolistSidebar) {
+            this.getTodoList();
+        }
     }
 
     addTask(event){
@@ -30,7 +35,6 @@ export default class Todolist {
             let span = document.createElement("span");
             span.innerHTML = "\u00d7";
             taskItem.appendChild(span);
-
         }
         this.todolistService.addTaskToTodoList(taskMessage);
 
@@ -61,13 +65,20 @@ export default class Todolist {
             li.textContent = task.text;
             if (task.completed) li.classList.add('checked');
 
-            const span = document.createElement('span'); // kruisje tonen
+            const span = document.createElement('span');
             span.innerHTML = '\u00D7';
             li.appendChild(span);
 
             this.todolistSidebar.appendChild(li);
         });
 
+    }
+
+    nextPage(event){
+        event.preventDefault();
+        if (event.currentTarget?.id === 'next-button') {
+            window.location.href = "session-dashboard.html";
+        }
     }
 
 }
